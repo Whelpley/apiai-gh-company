@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/webhook', function(req, res) {
-    console.log('retail-bot-webhook entered');
+    console.log('gh-company-info-webhook entered');
     try {
         var speech = '';
         var displayText = '';
@@ -26,26 +26,31 @@ app.post('/webhook', function(req, res) {
                 if (requestBody.result.action) {
                     var action = requestBody.result.action;
                     var messageData = '';
-                    if (action == "showOffers") {
-                      messageData = facebook.showOffers();
+                    // adjusted code here
+                    if (action == "companyInfo") {
+                      messageData = facebook.companyInfo();
                       data = { 'facebook': messageData };
-                    } else if (action == "addToCart") {
-                      //TODO add the product to user's shopping cart in database
-                      messageData = facebook.addedToCart();
-                      data = { 'facebook': messageData };
-                    } else if (action == "showCart") {
-                      //TODO read shopping cart items from database
-                      messageData = facebook.showCart();
-                      data = { 'facebook': messageData };
-                    } else if (action == "buyCart") {
-                      //TODO create order
-                      messageData = facebook.showReceipt();
-                      data = { 'facebook': messageData };
-                    } else if (action == "resetCart") {
-                      //TODO drop user's shopping cart from database
-                      speech = 'Your shopping cart is empty again.';
-                      displayText = 'Your shopping cart is empty again.';
                     }
+                    // if (action == "showOffers") {
+                    //   messageData = facebook.showOffers();
+                    //   data = { 'facebook': messageData };
+                    // } else if (action == "addToCart") {
+                    //   //TODO add the product to user's shopping cart in database
+                    //   messageData = facebook.addedToCart();
+                    //   data = { 'facebook': messageData };
+                    // } else if (action == "showCart") {
+                    //   //TODO read shopping cart items from database
+                    //   messageData = facebook.showCart();
+                    //   data = { 'facebook': messageData };
+                    // } else if (action == "buyCart") {
+                    //   //TODO create order
+                    //   messageData = facebook.showReceipt();
+                    //   data = { 'facebook': messageData };
+                    // } else if (action == "resetCart") {
+                    //   //TODO drop user's shopping cart from database
+                    //   speech = 'Your shopping cart is empty again.';
+                    //   displayText = 'Your shopping cart is empty again.';
+                    // }
                 }
             }
         }
