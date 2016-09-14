@@ -76,7 +76,7 @@ app.post('/*', function(req, res) {
   }
   else if (action == "sendFeedback") {
     var satisfied = result.contexts.parameters.satisfied;
-    if satisfied == "Yes" {
+    if (satisfied == "Yes") {
       displayText = "We're so happy we could help!";
       speech = displayText;
       // keep the has-information context
