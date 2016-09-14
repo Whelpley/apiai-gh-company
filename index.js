@@ -23,8 +23,8 @@ app.post('/*', function(req, res) {
   var params = result.parameters || {};
   var action = result.action || '';
   var contextIn = result.contexts.name || '';
-// defaults to what is put in
-  var contextOut = result.contexts || [];
+  var contextOut = [];
+  var resetContexts = false;
 
   var companyName = params.company_name || '';
   var phone = '';
@@ -87,17 +87,8 @@ app.post('/*', function(req, res) {
       displayText = "We're sorry we could not help. Could you tell us again which company you are trying to get in touch with?";
       speech = displayText;
       // remove the has-information context by setting lifespan to zero
-      contextOut = [
-        {
-          "name": "has-information",
-          "parameters": {
-            // "company_name.original": "att",
-            "company_name": companyName
-          },
-          // how many minutes the context will remain
-          "lifespan": 0
-        }
-      ];
+      // that did not work - how to clear the context?
+      resetContexts = true;
     }
   };
 
@@ -106,6 +97,7 @@ app.post('/*', function(req, res) {
       displayText: displayText,
       data: data,
       contextOut: contextOut,
+      resetContexts: resetContexts,
       source: 'gh-company-info-webhook'
   });
 });
