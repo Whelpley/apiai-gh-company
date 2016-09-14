@@ -9,6 +9,10 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.get('/', function (req, res) {
+  res.send('It works this far!');
+});
+
 app.post('/webhook', function(req, res) {
     // console.log('gh-company-info-webhook entered');
     try {
@@ -103,6 +107,6 @@ app.post('/webhook', function(req, res) {
     }
 });
 
-// app.listen((process.env.PORT || 5000), function() {
-//     console.log("Server listening");
-// });
+app.listen((process.env.PORT || 5000), function() {
+    console.log("Server listening");
+});
