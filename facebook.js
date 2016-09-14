@@ -3,28 +3,54 @@
 'use strict';
 
 //mid-repurposing
+// what am I suppsed to send back?
+
 exports.companyInfo = function() {
-    var text = 'Your shopping cart contains the following articles:';
+    // var text = 'Your shopping cart contains the following articles:';
     var messageData = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-                "template_type": "button",
-                "text": text,
-                "buttons": [{
-                    "type": "postback",
-                    "title": "Buy",
-                    "payload": "ACTION_BUY_CART"
-                }, {
-                    "type": "postback",
-                    "title": "Reset cart",
-                    "payload": "ACTION_RESET_CART"
-                }]
-            }
+        Sprint: {
+            phone: "111-111-1111",
+            address: "1 Winding Way",
+            contactName: "Steven Jones"
+        },
+        Verizon: {
+            phone: "222-222-2222",
+            address: "2 Spring St",
+            contactName: "Amy Acker"
+        },
+        ATT: {
+            phone: "333-333-3333",
+            address: "3 Elm Road",
+            contactName: "Bill DeBlasio"
         }
     }
     return messageData;
 }
+
+// original code base - don't delete yet, may be userful for structuring FB objects
+
+// exports.companyInfo = function() {
+//     var text = 'Your shopping cart contains the following articles:';
+//     var messageData = {
+//         "attachment": {
+//             "type": "template",
+//             "payload": {
+//                 "template_type": "button",
+//                 "text": text,
+//                 "buttons": [{
+//                     "type": "postback",
+//                     "title": "Buy",
+//                     "payload": "ACTION_BUY_CART"
+//                 }, {
+//                     "type": "postback",
+//                     "title": "Reset cart",
+//                     "payload": "ACTION_RESET_CART"
+//                 }]
+//             }
+//         }
+//     }
+//     return messageData;
+// }
 // exports.showOffers = function() {
 //     var messageData = {}
 //     var male = false

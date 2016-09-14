@@ -19,17 +19,47 @@ app.post('/webhook', function(req, res) {
         if (req.body) {
             var requestBody = req.body;
             if (requestBody.result) {
-                if (requestBody.result.fulfillment) {
-                    speech = (requestBody.result.fulfillment.speech || speech);
-                    displayText = (requestBody.result.fulfillment.displayText || displayText);
-                }
+                // should this stay?
+                // if (requestBody.result.fulfillment) {
+                //     speech = (requestBody.result.fulfillment.speech || speech);
+                //     displayText = (requestBody.result.fulfillment.displayText || displayText);
+                // }
                 if (requestBody.result.action) {
                     var action = requestBody.result.action;
                     var messageData = '';
-                    // adjusted code here
+
                     if (action == "companyInfo") {
-                      messageData = facebook.companyInfo();
-                      data = { 'facebook': messageData };
+                      var company = requestBody.result.parameters.company_name;
+                      var phone = '';
+                      var address = '';
+                      var contactName = '';
+                      // let's do it ugly first
+                      switch(company) {
+                          case "Sprint":
+                              phone = facebook.Sprint.phone;
+                              address = facebook.Sprint.phone;
+                              contactName = facebook.Sprint.contactName;
+                              break;
+                          case "Verizon":
+                              phone = facebook.Verizon.phone;
+                              address = facebook.Verizon.phone;
+                              contactName = facebook.Verizon.contactName;
+                              break;
+                          case "AT&T":
+                              phone = facebook.ATT.phone;
+                              address = facebook.ATT.phone;
+                              contactName = facebook.ATT.contactName;
+                              break;
+                          default:
+                              phone = "phone fail";
+                              address = "address fail";
+                              contactName = "contact name fail";
+                      };
+                      displayText = "We found the contact info for " + company + ":\nContact Name: " + contactName +",\nPhone number: " + phone + ",\nAddress: " + address;
+                      speech = "We found the contact info for " + company + ", and have printed it to your screen.";
+
+                      // messageData = facebook.companyInfo();
+                      // data = { 'facebook': messageData };
                     }
                     // if (action == "showOffers") {
                     //   messageData = facebook.showOffers();
@@ -61,7 +91,7 @@ app.post('/webhook', function(req, res) {
             speech: speech,
             displayText: displayText,
             data: data,
-            source: 'retail-bot-webhook'
+            source: 'gh-company-info-webhook'
         });
     } catch (err) {
         console.error("Can't process request", err);
