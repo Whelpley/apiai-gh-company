@@ -1,12 +1,6 @@
-//raw code form another repo - needs repurposing
-
 'use strict';
 
-//mid-repurposing
-// what am I suppsed to send back?
-
 exports.companyInfo = function() {
-    // var text = 'Your shopping cart contains the following articles:';
     var messageData = {
         Sprint: {
             phone: "111-111-1111",

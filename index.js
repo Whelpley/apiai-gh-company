@@ -1,4 +1,3 @@
-//raw code form another repo - needs repurposing
 
 'use strict';
 
@@ -11,7 +10,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.post('/webhook', function(req, res) {
-    console.log('gh-company-info-webhook entered');
+    // console.log('gh-company-info-webhook entered');
     try {
         var speech = '';
         var displayText = '';
@@ -104,6 +103,6 @@ app.post('/webhook', function(req, res) {
     }
 });
 
-app.listen((process.env.PORT || 5000), function() {
-    console.log("Server listening");
-});
+// app.listen((process.env.PORT || 5000), function() {
+//     console.log("Server listening");
+// });
