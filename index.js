@@ -23,7 +23,9 @@ app.post('/*', function(req, res) {
   var params = result.parameters || {};
   var action = result.action || '';
   var contextIn = result.contexts.name || '';
-  var contextOut = [];
+// defaults to what is put in
+  var contextOut = result.contexts || [];
+
   var companyName = params.company_name || '';
   var phone = '';
   var address = '';
@@ -59,7 +61,6 @@ app.post('/*', function(req, res) {
           address = "address fail";
           contactName = "contact name fail";
     };
-
     displayText = "We found the contact info for " + companyName + ": Contact Name: " + contactName +"; Phone number: " + phone + "; Address: " + address + "Was this the information you were looking for?";
     speech = displayText;
     contextOut = [
@@ -85,8 +86,18 @@ app.post('/*', function(req, res) {
     } else {
       displayText = "We're sorry we could not help. Could you tell us again which company you are trying to get in touch with?";
       speech = displayText;
-      // remove the has-information context by clearing the field
-      contextOut = [];
+      // remove the has-information context by setting lifespan to zero
+      contextOut = [
+        {
+          "name": "has-information",
+          "parameters": {
+            // "company_name.original": "att",
+            "company_name": companyName
+          },
+          // how many minutes the context will remain
+          "lifespan": 0
+        }
+      ];
     }
   };
 
@@ -94,7 +105,7 @@ app.post('/*', function(req, res) {
       speech: speech,
       displayText: displayText,
       data: data,
-      contexts: contextOut,
+      contextOut: contextOut,
       source: 'gh-company-info-webhook'
   });
 });
