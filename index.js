@@ -24,7 +24,7 @@ app.post('/*', function(req, res) {
   var action = result.action || '';
   var contextIn = result.contexts.name || '';
   var contextOut = [];
-  var resetContexts = false;
+  // var resetContexts = false;
 
   var companyName = params.company_name || '';
   var phone = '';
@@ -86,9 +86,8 @@ app.post('/*', function(req, res) {
     } else {
       displayText = "We're sorry we could not help. Could you tell us again which company you are trying to get in touch with?";
       speech = displayText;
-      // remove the has-information context by setting lifespan to zero
-      // that did not work - how to clear the context?
-      resetContexts = true;
+      // want to clear the 'has-information' context - HOW???
+      contextOut = [];
     }
   };
 
@@ -97,7 +96,8 @@ app.post('/*', function(req, res) {
       displayText: displayText,
       data: data,
       contextOut: contextOut,
-      resetContexts: resetContexts,
+      // ? How do we reset the Context?
+      // resetContexts: resetContexts,
       source: 'gh-company-info-webhook'
   });
 });
