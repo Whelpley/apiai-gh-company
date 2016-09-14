@@ -1,24 +1,21 @@
 'use strict';
 
-exports.companyInfo = function() {
-    var messageData = {
-        Sprint: {
-            phone: "111-111-1111",
-            address: "1 Winding Way",
-            contactName: "Steven Jones"
-        },
-        Verizon: {
-            phone: "222-222-2222",
-            address: "2 Spring St",
-            contactName: "Amy Acker"
-        },
-        ATT: {
-            phone: "333-333-3333",
-            address: "3 Elm Road",
-            contactName: "Bill DeBlasio"
-        }
+module.exports = {
+    Sprint: {
+        phone: "111-111-1111",
+        address: "1 Winding Way",
+        contactName: "Steven Jones"
+    },
+    Verizon: {
+        phone: "222-222-2222",
+        address: "2 Spring St",
+        contactName: "Amy Acker"
+    },
+    ATT: {
+        phone: "333-333-3333",
+        address: "3 Elm Road",
+        contactName: "Bill DeBlasio"
     }
-    return messageData;
 }
 
 // original code base - don't delete yet, may be userful for structuring FB objects
