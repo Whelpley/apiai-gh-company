@@ -94,7 +94,7 @@ app.post('/*', function(req, res) {
       speech: speech,
       displayText: displayText,
       data: data,
-      contextOut: contextOut,
+      contexts: contextOut,
       source: 'gh-company-info-webhook'
   });
 });
