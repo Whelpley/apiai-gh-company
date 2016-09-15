@@ -23,7 +23,9 @@ app.post('/*', function(req, res) {
   var params = result.parameters || {};
   var action = result.action || '';
   var contextIn = result.contexts.name || '';
-  var contextOut = [];
+  // defaults to sending the same Context out as what it received In
+  //  is this necessary? this may happen automatically via api.ai
+  var contextOut = result.contexts || [];
   // var resetContexts = false;
 
   var companyName = params.company_name || '';
@@ -61,7 +63,7 @@ app.post('/*', function(req, res) {
           address = "address fail";
           contactName = "contact name fail";
     };
-    displayText = "We found the contact info for " + companyName + ": Contact Name: " + contactName +"; Phone number: " + phone + "; Address: " + address + "Was this the information you were looking for?";
+    displayText = "We found the contact info for " + companyName + ": Contact Name: " + contactName +"; Phone number: " + phone + "; Address: " + address + ". Was this the information you were looking for?";
     speech = displayText;
     contextOut = [
       {
@@ -76,7 +78,7 @@ app.post('/*', function(req, res) {
     ];
   }
   else if (action == "sendFeedback") {
-    var satisfied = result.contexts.parameters.satisfied;
+    var satisfied = result.contexts.parameters.satisfied || '';
     if (satisfied == "Yes") {
       displayText = "We're so happy we could help!";
       speech = displayText;
@@ -97,6 +99,7 @@ app.post('/*', function(req, res) {
       data: data,
       contextOut: contextOut,
       // ? How do we reset the Context?
+      //    below does not seem to work ...
       // resetContexts: resetContexts,
       source: 'gh-company-info-webhook'
   });
